@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Exo-functions
  * Plugin URI: http://wadellc.co
- * Description: Hybrid-compatible custom utilities optimized for Block Themes, Gravity Forms, and WooCommerce. Works seamlessly on single-site and multisite setups.
+ * Description: Utilities optimized for FSE Block Themes. ExtendsGravity Forms, and WooCommerce.
  * Author: David W. Couch
  * Author URI: http://wadellc.co
  * Version: 1.1.0
