@@ -47,6 +47,7 @@ add_action( 'plugins_loaded', function() {
 
 /**
  * 3. EXTENSION LOADER MAP & LICENSE INJECTION
+ * Multi-site and single-site compatible core processor.
  */
 function exo_load_plugin_extensions() {
     global $exo_active_exts;
@@ -59,42 +60,28 @@ function exo_load_plugin_extensions() {
         require_once $plugin_root . 'xo-wp-settings.php';
     }
 
-    // 3b. Environment-Aware Settings Grabber
+    // 3b. Robust Hybrid Settings Grabber
+    // Checks the Network option first, falls back to local site option seamlessly
     if ( is_multisite() ) {
         $saved_settings = get_network_option( get_main_site_id(), 'exo_plugin_settings', [] );
+        if ( empty( $saved_settings ) ) {
+            $saved_settings = get_option( 'exo_plugin_settings', [] );
+        }
     } else {
         $saved_settings = get_option( 'exo_plugin_settings', [] );
     }
 
-    // 3c. License Constant Auto-Injection (With Domain Whitelist for Multisite)
-    $should_inject = true;
+    // 3c. Direct License Constant Auto-Injection
+    // If the key is present in your settings and the constant isn't defined yet, fire it up.
+    $license_map = [
+        'gf_license_key'  => 'GF_LICENSE_KEY',
+        'gpp_license_key' => 'GPP_LICENSE_KEY',
+        'akismet_api_key' => 'WPCOM_API_KEY',
+    ];
 
-    if ( is_multisite() ) {
-        $current_site = get_site();
-        $current_domain = isset( $current_site->domain ) ? $current_site->domain : '';
-        
-        // ADD AUTHORIZED MULTISITE DOMAINS HERE
-        $authorized_domains = [
-            'yourmainagency.com',
-            'wagners-retail.com',
-        ];
-        
-        if ( ! in_array( $current_domain, $authorized_domains, true ) ) {
-            $should_inject = false;
-        }
-    }
-
-    if ( $should_inject ) {
-        $license_map = [
-            'gf_license_key'  => 'GF_LICENSE_KEY',
-            'gpp_license_key' => 'GPP_LICENSE_KEY',
-            'akismet_api_key' => 'WPCOM_API_KEY',
-        ];
-
-        foreach ( $license_map as $settings_key => $constant_name ) {
-            if ( ! empty( $saved_settings[$settings_key] ) && ! defined( $constant_name ) ) {
-                define( $constant_name, $saved_settings[$settings_key] );
-            }
+    foreach ( $license_map as $settings_key => $constant_name ) {
+        if ( ! empty( $saved_settings[$settings_key] ) && ! defined( $constant_name ) ) {
+            define( $constant_name, $saved_settings[$settings_key] );
         }
     }
 
@@ -141,12 +128,17 @@ add_filter( 'plugin_row_meta', function( $plugin_meta, $plugin_file ) {
 
 /**
  * 5. PLUGIN Update Checker Integration (GitHub Branch-Based Updates)
+ * Connects directly to your public repository for seamless, fleet-wide updates.
  */
-require_once __DIR__ . '/plugin-update-checker/plugin-update-checker.php';
-use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+if ( file_exists( __DIR__ . '/plugin-update-checker-5.6/plugin-update-checker.php' ) ) {
+    require_once __DIR__ . '/plugin-update-checker-5.6/plugin-update-checker.php';
+    
+    if ( class_exists( 'YahnisElsts\PluginUpdateChecker\v5\PucFactory' ) ) {
+        $myUpdateChecker = PucFactory::buildUpdateChecker(
+            'https://github.com/wadellc/xo-functions',
+            __FILE__,
+            'xo-functions'
+        );
+    }
+}
 
-$myUpdateChecker = PucFactory::buildUpdateChecker(
-    'https://github.com',
-    __FILE__,
-    'xo-functions'
-);
