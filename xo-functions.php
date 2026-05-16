@@ -5,7 +5,7 @@
  * Description: Hybrid-compatible custom utilities optimized for Block Themes, Gravity Forms, and WooCommerce. Works seamlessly on single-site and multisite setups.
  * Author: David W. Couch
  * Author URI: http://wadellc.co
- * Version: 1.0.0
+ * Version: 1.1.0
  */
 
 // Exit if accessed directly.
