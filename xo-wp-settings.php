@@ -53,6 +53,10 @@ function exo_render_settings_page() {
         // Modules Processing
         $allowed_tools = [ 'xo-wp-core', 'xo-wp-frontend', 'xo-gravity-forms', 'xo-woo-commerce' ];
         $submitted_tools = isset( $_POST['enabled_tools'] ) && is_array( $_POST['enabled_tools'] ) ? $_POST['enabled_tools'] : [];
+        
+        // Add an initialization flag so an empty checkbox array is recognized as a conscious choice
+        $saved_settings['is_initialized'] = 1;
+
         foreach ( $submitted_tools as $tool ) {
             if ( in_array( $tool, $allowed_tools, true ) ) {
                 $saved_settings[$tool] = 1;
@@ -94,7 +98,7 @@ function exo_render_settings_page() {
         <p>Centralized configuration engine for your premium extension scripts.</p>
         <hr />
         
-        <form method="post" action="">
+        <form method="post" action="<?php echo esc_url( is_multisite() ? network_admin_url('settings.php?page=exo-functions-settings') : admin_url('options-general.php?page=exo-functions-settings') ); ?>">
             <?php wp_nonce_field( 'exo_save_settings', 'exo_settings_nonce' ); ?>
             
             <h2>1. Structural Framework Modules</h2>
@@ -105,7 +109,7 @@ function exo_render_settings_page() {
                             <th scope="row"><?php echo esc_html( $info['title'] ); ?></th>
                             <td>
                                 <label for="<?php echo esc_attr( $slug ); ?>">
-                                    <input name="enabled_tools[]" type="checkbox" id="<?php echo esc_attr( $slug ); ?>" value="<?php echo esc_attr( $slug ); ?>" <?php checked( empty($settings) || isset( $settings[$slug] ) ); ?>>
+                                    <input name="enabled_tools[]" type="checkbox" id="<?php echo esc_attr( $slug ); ?>" value="<?php echo esc_attr( $slug ); ?>" <?php checked( ! isset($settings['is_initialized']) || isset( $settings[$slug] ) ); ?>>
                                     <?php echo esc_html( $info['desc'] ); ?>
                                 </label>
                             </td>

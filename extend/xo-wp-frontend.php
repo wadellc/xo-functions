@@ -12,9 +12,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * 1. TODAY'S DATE SHORTCODE
- * Usage: [todays_date] 
+ * Usage: [todays_date] or [todays_date format="Y-m-d"]
  * Respects WordPress Timezone settings.
  */
-add_shortcode( 'todays_date', function() {
-    return current_time( 'F j, Y' );
+add_shortcode( 'todays_date', function( $atts ) {
+    $pairs = shortcode_atts( [
+        'format' => 'F j, Y',
+    ], $atts, 'todays_date' );
+
+    return current_time( sanitize_text_field( $pairs['format'] ) );
 });

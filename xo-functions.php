@@ -13,6 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
+// Declare namespaces at the top-level scope
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
 /**
  * 1. ENVIRONMENT CUE (Visual Border)
  */
@@ -85,9 +88,9 @@ function exo_load_plugin_extensions() {
         }
     }
 
-    // 3d. Set Fallback Toggles if settings don't exist yet
+    // 3d. Set Fallback Toggles if settings don't exist yet (Fresh Install)
     $saved_toggles = $saved_settings;
-    if ( empty( $saved_toggles ) ) {
+    if ( ! isset( $saved_toggles['is_initialized'] ) ) {
         $saved_toggles = [ 'xo-wp-core' => 1, 'xo-wp-frontend' => 1, 'xo-gravity-forms' => 1, 'xo-woo-commerce' => 1 ];
     }
     

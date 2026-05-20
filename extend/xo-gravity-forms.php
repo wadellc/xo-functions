@@ -1,97 +1,83 @@
 <?php
 /**
- * Extend Gravity Forms
+ * Extension Name: Gravity Forms Extensions
+ * Description: Optimizes form list views, restricts defaults to active entries, and exposes submission tracking columns.
+ * Part of: Exo-functions Global Utility Framework
  */
- // Only run this if Gravity Forms is active
-if ( class_exists( 'GFCommon' ) ) {
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
 
 /**
- * Gravity Wiz // Gravity Forms // Default Form List to Active Forms
- *
- * Sets Form List view to Active Forms by Default.
- *
- * @version 0.1
- * @author  David Smith <david@gravitywiz.com>
- * @license GPL-2.0+
- * @link    https://gravitywiz.com
- *
- * Plugin Name: Gravity Forms Default Form List to Active
- * Plugin URI: https://gravitywiz.com
- * Description: Sets Form List view to Active Forms by Default.
- * Author: Gravity Wiz
- * Version: 0.1
- * Author URI: https://gravitywiz.com
- *
+ * 1. SET FORM LIST TO ACTIVE BY DEFAULT
+ * Intercepts Gravity Forms dashboard routing to hide inactive clutter automatically.
  */
-add_action( 'init', function() {
-    if ( ! class_exists( 'GFForms' ) ) {
+add_action( 'admin_init', function() {
+    // Only target the specific form list admin view
+    if ( ! class_exists( 'GFForms' ) || ! method_exists( 'GFForms', 'get_page' ) || GFForms::get_page() !== 'form_list' ) {
         return;
     }
-    if ( GFForms::get_page() === 'form_list' ) {
 
-        $params = array();
+    $params = array();
 
-        if ( ! isset( $_GET['sort'] ) ) {
-            $params = array(
-                'sort'    => 'id',
-                'dir'     => 'desc',
-                'orderby' => 'id',
-                'order'   => 'desc',
-            );
-        }
-
-        if ( ! isset( $_GET['filter'] ) ) {
-            $params['filter'] = 'active';
-        }
-
-        if ( ! empty( $params ) ) {
-            wp_redirect( add_query_arg( $params ) );
-            exit;
-        }
+    // Only inject sorting parameters if none are explicitly set
+    if ( ! isset( $_GET['sort'] ) && ! isset( $_GET['orderby'] ) ) {
+        $params = array(
+            'sort'    => 'id',
+            'dir'     => 'desc',
+            'orderby' => 'id',
+            'order'   => 'desc',
+        );
     }
 
+    // Only inject filter if no view filter is active
+    if ( ! isset( $_GET['filter'] ) ) {
+        $params['filter'] = 'active';
+    }
+
+    // Fire the redirect only if changes are needed, preventing endless redirection loops
+    if ( ! empty( $params ) ) {
+        wp_redirect( add_query_arg( $params ) );
+        exit;
+    }
 } );
 
 
-
-
-
-/* Display Latest Entry Column
- * Displays latest entrt of each form in last column of forms admin
+/**
+ * 2. CUSTOM FORM LIST COLUMNS
+ * Displays latest entry activity context metrics directly on the admin overview layout.
  */
-    add_filter( 'gform_form_list_columns', 'add_latest_entry_column' );
-    function add_latest_entry_column( $columns ) {
-        $columns['latest_entry'] = 'Latest Entry Date';
-        return $columns;
+add_filter( 'gform_form_list_columns', function( $columns ) {
+    $columns['latest_entry'] = esc_html__( 'Latest Entry Date', 'textdomain' );
+    return $columns;
+} );
+
+add_action( 'gform_form_list_column_latest_entry', function( $item ) {
+    $form_id = absint( $item->id );
+
+    // Verify API availability safely
+    if ( ! class_exists( 'GFAPI' ) ) {
+        return;
     }
 
-    add_action( 'gform_form_list_column_latest_entry', 'populate_latest_entry_column' );
-    function populate_latest_entry_column( $item ) {
-        $form_id = $item->id;
+    $search_criteria = array( 'status' => 'active' );
+    $sorting         = array( 'key' => 'date_created', 'direction' => 'DESC' );
+    $paging          = array( 'offset' => 0, 'page_size' => 1 );
 
-        // Double-check the API class exists before calling it
-        if ( ! class_exists( 'GFAPI' ) ) {
-            return;
-        }
+    $entries = GFAPI::get_entries( $form_id, $search_criteria, $sorting, $paging );
 
-        $search_criteria = array( 'status' => 'active' );
-        $sorting         = array( 'key' => 'date_created', 'direction' => 'DESC' );
-        $paging          = array( 'offset' => 0, 'page_size' => 1 );
-
-        $entries = GFAPI::get_entries( $form_id, $search_criteria, $sorting, $paging );
-
-        if ( ! empty( $entries ) ) {
-            $last_entry  = $entries[0];
-            $date_string = $last_entry['date_created'];
-            
-            // Format using WordPress site settings
-            echo date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $date_string ) );
-        } else {
-            echo '<span style="color:#999;">No entries yet</span>';
-        }
+    if ( ! empty( $entries ) && isset( $entries[0]['date_created'] ) ) {
+        $date_string = $entries[0]['date_created'];
+        
+        // Output site localized and formatted layout values safely
+        $formatted_date = date_i18n( 
+            get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), 
+            strtotime( $date_string ) 
+        );
+        echo esc_html( $formatted_date );
+    } else {
+        echo '<span style="color:#999;">' . esc_html__( 'No entries yet', 'textdomain' ) . '</span>';
     }
-    //End Last Entry Column
-
-
-}
+} );
