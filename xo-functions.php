@@ -5,7 +5,7 @@
  * Description: Utilities optimized for FSE Block Themes. ExtendsGravity Forms, and WooCommerce.
  * Author: David W. Couch
  * Author URI: http://wadellc.co
- * Version: 1.1.0
+ * Version: 1.2.0
  */
 
 // Exit if accessed directly.
@@ -133,8 +133,8 @@ add_filter( 'plugin_row_meta', function( $plugin_meta, $plugin_file ) {
  * 5. PLUGIN Update Checker Integration (GitHub Branch-Based Updates)
  * Connects directly to your public repository for seamless, fleet-wide updates.
  */
-if ( file_exists( __DIR__ . '/plugin-update-checker-5.6/plugin-update-checker.php' ) ) {
-    require_once __DIR__ . '/plugin-update-checker-5.6/plugin-update-checker.php';
+if ( file_exists( __DIR__ . '/includes/plugin-update-checker-5.6/plugin-update-checker.php' ) ) {
+    require_once __DIR__ . '/includes/plugin-update-checker-5.6/plugin-update-checker.php';
     
     if ( class_exists( 'YahnisElsts\PluginUpdateChecker\v5\PucFactory' ) ) {
         $myUpdateChecker = PucFactory::buildUpdateChecker(
