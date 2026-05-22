@@ -5,7 +5,7 @@
  * Description: Utilities optimized for FSE Block Themes. ExtendsGravity Forms, and WooCommerce.
  * Author: David W. Couch
  * Author URI: http://wadellc.co
- * Version: 1.2.0
+ * Version: 1.2.1
  */
 
 // Exit if accessed directly.
