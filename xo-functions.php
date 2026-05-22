@@ -5,7 +5,7 @@
  * Description: Utilities optimized for FSE Block Themes. Extends Gravity Forms, and WooCommerce.
  * Author: David W. Couch
  * Author URI: http://wadellc.co
- * Version: 1.2.3
+ * Version: 1.2.4
  */
 
 // Exit if accessed directly.
@@ -136,9 +136,7 @@ add_filter( 'plugin_row_meta', function( $plugin_meta, $plugin_file ) {
 if ( file_exists( XO_PLUGIN_DIR . 'includes/plugin-update-checker-5.6/plugin-update-checker.php' ) ) {
     require_once XO_PLUGIN_DIR . 'includes/plugin-update-checker-5.6/plugin-update-checker.php';
 
-    use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
-
-    PucFactory::buildUpdateChecker(
+    \YahnisElsts\PluginUpdateChecker\v5\PucFactory::buildUpdateChecker(
         'https://github.com/wadellc/xo-functions',
         __FILE__,
         'xo-functions'
