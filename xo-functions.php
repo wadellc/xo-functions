@@ -2,10 +2,10 @@
 /**
  * Plugin Name: Exo-functions
  * Plugin URI: http://wadellc.co
- * Description: Utilities optimized for FSE Block Themes. ExtendsGravity Forms, and WooCommerce.
+ * Description: Utilities optimized for FSE Block Themes. Extends Gravity Forms, and WooCommerce.
  * Author: David W. Couch
  * Author URI: http://wadellc.co
- * Version: 1.2.1
+ * Version: 1.2.2
  */
 
 // Exit if accessed directly.
@@ -13,8 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// Declare namespaces at the top-level scope
-use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+// Plugin directory constant
+define( 'XO_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+
 
 /**
  * 1. ENVIRONMENT CUE (Visual Border)
@@ -55,12 +56,11 @@ add_action( 'plugins_loaded', function() {
 function exo_load_plugin_extensions() {
     global $exo_active_exts;
     $exo_active_exts = array();
-    $plugin_root = plugin_dir_path( __FILE__ );
-    $extend_path = $plugin_root . 'extend/';
+    $extend_path = XO_PLUGIN_DIR . 'extend/';
 
     // 3a. Pull in the Settings Interface file unconditionally
-    if ( file_exists( $plugin_root . 'xo-wp-settings.php' ) ) {
-        require_once $plugin_root . 'xo-wp-settings.php';
+    if ( file_exists( XO_PLUGIN_DIR . 'xo-wp-settings.php' ) ) {
+        require_once XO_PLUGIN_DIR . 'xo-wp-settings.php';
     }
 
     // 3b. Robust Hybrid Settings Grabber
@@ -96,10 +96,10 @@ function exo_load_plugin_extensions() {
     
     // 3e. Evaluate active status based on database settings and plugin availability
     $map = array(
-        'xo-wp-core.php'        => array( 'active' => isset( $saved_toggles['xo-wp-core'] ), 'label'  => 'Admin Tools' ),
-        'xo-wp-frontend.php'    => array( 'active' => isset( $saved_toggles['xo-wp-frontend'] ), 'label'  => 'Frontend Tools' ),
-        'xo-gravity-forms.php'  => array( 'active' => ( class_exists( 'GFCommon' ) && isset( $saved_toggles['xo-gravity-forms'] ) ), 'label'  => 'Gravity Forms' ),
-        'xo-woo-commerce.php'   => array( 'active' => ( class_exists( 'WooCommerce' ) && isset( $saved_toggles['xo-woo-commerce'] ) ), 'label'  => 'WooCommerce' ),
+        'xo-wp-core.php'        => array( 'active' => isset( $saved_toggles['xo-wp-core'] ),                                          'label' => 'Admin Tools' ),
+        'xo-wp-frontend.php'    => array( 'active' => isset( $saved_toggles['xo-wp-frontend'] ),                                      'label' => 'Frontend Tools' ),
+        'xo-gravity-forms.php'  => array( 'active' => ( class_exists( 'GFCommon' ) && isset( $saved_toggles['xo-gravity-forms'] ) ),  'label' => 'Gravity Forms' ),
+        'xo-woo-commerce.php'   => array( 'active' => ( class_exists( 'WooCommerce' ) && isset( $saved_toggles['xo-woo-commerce'] ) ), 'label' => 'WooCommerce' ),
     );
 
     // 3f. Execute loaders
@@ -133,15 +133,14 @@ add_filter( 'plugin_row_meta', function( $plugin_meta, $plugin_file ) {
  * 5. PLUGIN Update Checker Integration (GitHub Branch-Based Updates)
  * Connects directly to your public repository for seamless, fleet-wide updates.
  */
-if ( file_exists( __DIR__ . '/includes/plugin-update-checker-5.6/plugin-update-checker.php' ) ) {
-    require_once __DIR__ . '/includes/plugin-update-checker-5.6/plugin-update-checker.php';
-    
-    if ( class_exists( 'YahnisElsts\PluginUpdateChecker\v5\PucFactory' ) ) {
-        $myUpdateChecker = PucFactory::buildUpdateChecker(
-            'https://github.com/wadellc/xo-functions',
-            __FILE__,
-            'xo-functions'
-        );
-    }
-}
+if ( file_exists( XO_PLUGIN_DIR . 'includes/plugin-update-checker-5.6/plugin-update-checker.php' ) ) {
+    require_once XO_PLUGIN_DIR . 'includes/plugin-update-checker-5.6/plugin-update-checker.php';
 
+    use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
+    PucFactory::buildUpdateChecker(
+        'https://github.com/wadellc/xo-functions',
+        __FILE__,
+        'xo-functions'
+    );
+}
