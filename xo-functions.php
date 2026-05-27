@@ -5,7 +5,7 @@
  * Description: Utilities optimized for FSE Block Themes. Extends Gravity Forms, and WooCommerce.
  * Author: David W. Couch
  * Author URI: http://wadellc.co
- * Version: 1.2.4
+ * Version: 1.3.0
  */
 
 // Exit if accessed directly.
@@ -91,15 +91,15 @@ function exo_load_plugin_extensions() {
     // 3d. Set Fallback Toggles if settings don't exist yet (Fresh Install)
     $saved_toggles = $saved_settings;
     if ( ! isset( $saved_toggles['is_initialized'] ) ) {
-        $saved_toggles = [ 'xo-wp-core' => 1, 'xo-wp-frontend' => 1, 'xo-gravity-forms' => 1, 'xo-woo-commerce' => 1 ];
+        $saved_toggles = [ 'wp-core' => 1, 'wp-frontend' => 1, 'gravity-forms' => 1, 'woo-commerce' => 1 ];
     }
-    
+
     // 3e. Evaluate active status based on database settings and plugin availability
     $map = array(
-        'xo-wp-core.php'        => array( 'active' => isset( $saved_toggles['xo-wp-core'] ),                                          'label' => 'Admin Tools' ),
-        'xo-wp-frontend.php'    => array( 'active' => isset( $saved_toggles['xo-wp-frontend'] ),                                      'label' => 'Frontend Tools' ),
-        'xo-gravity-forms.php'  => array( 'active' => ( class_exists( 'GFCommon' ) && isset( $saved_toggles['xo-gravity-forms'] ) ),  'label' => 'Gravity Forms' ),
-        'xo-woo-commerce.php'   => array( 'active' => ( class_exists( 'WooCommerce' ) && isset( $saved_toggles['xo-woo-commerce'] ) ), 'label' => 'WooCommerce' ),
+        'wp-core/index.php'        => array( 'active' => isset( $saved_toggles['wp-core'] ),                                          'label' => 'Admin Tools' ),
+        'wp-frontend/index.php'    => array( 'active' => isset( $saved_toggles['wp-frontend'] ),                                      'label' => 'Frontend Tools' ),
+        'gravity-forms/index.php'  => array( 'active' => ( class_exists( 'GFCommon' ) && isset( $saved_toggles['gravity-forms'] ) ),  'label' => 'Gravity Forms' ),
+        'woo-commerce/index.php'   => array( 'active' => ( class_exists( 'WooCommerce' ) && isset( $saved_toggles['woo-commerce'] ) ), 'label' => 'WooCommerce' ),
     );
 
     // 3f. Execute loaders
