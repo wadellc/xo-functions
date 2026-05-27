@@ -1,8 +1,9 @@
 <?php
 /**
- * Feature: Dynamic Taxonomies in Menus
+ * Feature: Dynamic Taxonomies in Menus (WIP)
  * Description: Dynamically inject WooCommerce Brands/Taxonomies with active inventory into the menu.
  * Part of: WordPress Core Utilities
+ * Status: WORK IN PROGRESS - Not production ready
  */
 
 // Exit if accessed directly.
