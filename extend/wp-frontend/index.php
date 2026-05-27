@@ -14,4 +14,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 $wp_frontend_dir = dirname( __FILE__ );
 
 // Load all frontend extensions
-require_once $wp_frontend_dir . '/xo-wp-frontend.php';
+require_once $wp_frontend_dir . '/wp-frontend.php';

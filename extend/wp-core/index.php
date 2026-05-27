@@ -14,5 +14,4 @@ if ( ! defined( 'ABSPATH' ) ) {
 $wp_core_dir = dirname( __FILE__ );
 
 // Load all core utility modules
-require_once $wp_core_dir . '/slug-to-body-class.php';
 require_once $wp_core_dir . '/subcategories-add.php';
