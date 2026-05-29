@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: XO Functions
- * Description: WordPress and plugin support functions and utilities. Enviroment cues, helper functions, and more.
+ * Description: WordPress and plugin support functions and utilities. Environment cues, helper functions, and more.
  * Author:      David W. Couch <http://wadellc.co>
- * Version:     2.1.3
+ * Version:     2.1.4
  * Text Domain: xo-functions
  * Requires at least: 5.6
  * Requires PHP:      7.4
@@ -12,7 +12,7 @@
  * @subpackage Core
  * @category   Framework
  * @author     David W. Couch <http://wadellc.co>
- * @version    2.1.3
+ * @version    2.1.4
  * @since      1.0.0
  */
 
@@ -21,13 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// 1. GLOBAL SYSTEM CONSTANTS
-if ( ! function_exists( 'get_plugin_data' ) ) {
-    require_once ABSPATH . 'wp-admin/includes/plugin.php';
-}
-$xo_plugin_data = get_plugin_data( __FILE__ );
-
-define( 'XO_VERSION', $xo_plugin_data['Version'] ); // Dynamically grabs plugin Version from header comment
+// 1. GLOBAL SYSTEM CONSTANTS (Static paths are safe out here)
 define( 'XO_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'XO_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
@@ -39,6 +33,15 @@ if ( is_admin() && file_exists( XO_PLUGIN_DIR . 'admin/xo-wp-settings.php' ) ) {
 // 3. RUN THE UTILITY MODULE LOADER PIPELINE
 add_action( 'plugins_loaded', 'xo_functions_core_module_loader' );
 function xo_functions_core_module_loader() {
+    
+    // SAFE DYNAMIC CONSTANT DEFINITION
+    // Moving this inside plugins_loaded prevents the textdomain notice!
+    if ( ! function_exists( 'get_plugin_data' ) ) {
+        require_once ABSPATH . 'wp-admin/includes/plugin.php';
+    }
+    $xo_plugin_data = get_plugin_data( __FILE__ );
+    define( 'XO_VERSION', $xo_plugin_data['Version'] );
+
     $extend_path = XO_PLUGIN_DIR . 'extend/';
     
     // 3a. Pull saved configuration states safely based on site topology
