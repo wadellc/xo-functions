@@ -1,8 +1,16 @@
 <?php
 /**
- * Extension Name: WooCommerce Extensions
- * Description: Optimizes product administration workflows by exposing shipping classes and clarifying taxonomy labels.
- * Part of: Exo-functions Global Utility Framework
+ * WooCommerce Custom Admin Optimization Utilities.
+ *
+ * Appends custom tracking data grids into core product listings and clarifies
+ * eCommerce taxonomy label variables to provide clear administrative direction.
+ *
+ * @package    XO_Functions
+ * @subpackage WooCommerce
+ * @category   Dashboard_Filters
+ * @author     David W. Couch <http://wadellc.co>
+ * @version    2.0.0
+ * @since      1.3.2
  */
 
 // Exit if accessed directly.
@@ -12,6 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * 1. PRODUCT LIST COLUMNS: SHIPPING CLASS
+ *
  * Appends a custom shipping class tracking metric column to the dashboard layout interface.
  */
 add_filter( 'manage_edit-product_columns', function( $columns ) {
@@ -40,22 +49,22 @@ add_action( 'manage_product_posts_custom_column', function( $column, $product_id
         }
         
         // Fallback layout state if no shipping class is configured
-        echo '<span style="color:#999;"><em>' . esc_html__( 'n/a', 'woocommerce' ) . '</em></span>';
+        echo '<span style="color:#999;"><em>' . esc_html__( 'n/a', 'xo-functions' ) . '</em></span>';
     }
 }, 10, 2 );
 
 /**
  * 2. TAXONOMY LABEL CLARIFICATION
- * Modifies the core 'product_cat' schema object variables to differentiate them from post categories.
+ *
+ * Safely targets and adjusts the 'product_cat' object labels on init 
+ * to cleanly isolate store catalogs from post categories.
  */
-add_action( 'registered_taxonomy', function( $taxonomy, $object_type, $args ) {
-    if ( 'product_cat' === $taxonomy ) {
-        global $wp_taxonomies;
-        
-        if ( isset( $wp_taxonomies[$taxonomy]->labels ) ) {
-            // Update structural global labels safely for custom taxonomy panels
-            $wp_taxonomies[$taxonomy]->labels->singular_name = esc_html__( 'Product Category', 'woocommerce' );
-            $wp_taxonomies[$taxonomy]->labels->name          = esc_html__( 'Product Categories', 'woocommerce' );
-        }
+add_action( 'init', function() {
+    $taxonomy_object = get_taxonomy( 'product_cat' );
+    
+    if ( $taxonomy_object && isset( $taxonomy_object->labels ) ) {
+        // Update structural labels safely for custom taxonomy panels
+        $taxonomy_object->labels->singular_name = esc_html__( 'Product Category', 'woocommerce' );
+        $taxonomy_object->labels->name          = esc_html__( 'Product Categories', 'woocommerce' );
     }
-}, 10, 3 );
+}, 99 );

@@ -1,8 +1,16 @@
 <?php
 /**
- * Extension Name: Gravity Forms Extensions
- * Description: Optimizes form list views, restricts defaults to active entries, and exposes submission tracking columns.
- * Part of: Exo-functions Global Utility Framework
+ * Gravity Forms Extensions Loader.
+ *
+ * Main entry point for the Gravity Forms optimization suite. Evaluates 
+ * structural dependencies and safely pulls in custom engine overrides.
+ *
+ * @package    XO_Functions
+ * @subpackage Gravity_Forms
+ * @category   Loaders
+ * @author     David W. Couch <http://wadellc.co>
+ * @version    2.0.0
+ * @since      1.3.2
  */
 
 // Exit if accessed directly.
@@ -11,7 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define the module directory
-$gravity_forms_dir = dirname( __FILE__ );
+$xo_gf_dir = dirname( __FILE__ );
 
-// Load all Gravity Forms extensions
-require_once $gravity_forms_dir . '/xo-gravity-forms.php';
+// Load all Gravity Forms extensions safely
+if ( file_exists( $xo_gf_dir . '/xo-gravity-forms.php' ) ) {
+    require_once $xo_gf_dir . '/xo-gravity-forms.php';
+}

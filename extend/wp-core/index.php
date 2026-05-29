@@ -1,8 +1,16 @@
 <?php
 /**
- * Extension Name: WordPress Core Utilities
- * Description: Bundled core enhancements for administrative layout, page tracking, and debugging.
- * Part of: Exo-functions Global Utility Framework
+ * WordPress Core Utilities Extension Loader.
+ *
+ * Main entry point for administrative utilities. Evaluates active state
+ * and safely pulls in specific sub-modules.
+ *
+ * @package    XO_Functions
+ * @subpackage Core_Utilities
+ * @category   Loaders
+ * @author     David W. Couch <http://wadellc.co>
+ * @version    2.0.0
+ * @since      1.3.2
  */
 
 // Exit if accessed directly.
@@ -11,7 +19,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define the module directory
-$wp_core_dir = dirname( __FILE__ );
+$xo_core_dir = dirname( __FILE__ );
 
-// Load all core utility modules
-require_once $wp_core_dir . '/subcategories-add.php';
+// Load all core utility modules safely
+if ( file_exists( $xo_core_dir . '/subcategories-add.php' ) ) {
+    require_once $xo_core_dir . '/subcategories-add.php';
+}
