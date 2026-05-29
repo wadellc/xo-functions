@@ -1,5 +1,4 @@
 <?php
-<?php
 /**
  * Plugin Name: XO Functions
  * Description: WordPress and plugin support functions and utilities. Enviroment cues, helper functions, and more.
@@ -13,7 +12,7 @@
  * @subpackage Core
  * @category   Framework
  * @author     David W. Couch <http://wadellc.co>
- * @version    2.1.1
+ * @version    2.1.2
  * @since      1.0.0
  */
 
@@ -23,7 +22,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // 1. GLOBAL SYSTEM CONSTANTS
-define( 'XO_VERSION', '2.0.0' );
+if ( ! function_exists( 'get_plugin_data' ) ) {
+    require_once ABSPATH . 'wp-admin/includes/plugin.php';
+}
+$xo_plugin_data = get_plugin_data( __FILE__ );
+
+define( 'XO_VERSION', $xo_plugin_data['Version'] ); // Dynamically grabs plugin Version from header comment
 define( 'XO_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'XO_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
