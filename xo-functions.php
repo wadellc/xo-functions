@@ -4,7 +4,7 @@
  * Plugin Name: XO Functions
  * Description: WordPress and plugin support functions and utilities. Enviroment cues, helper functions, and more.
  * Author:      David W. Couch <http://wadellc.co>
- * Version:     2.0.0
+ * Version:     2.0.1
  * Text Domain: xo-functions
  *
  * @package    XO_Functions
@@ -35,8 +35,8 @@ add_action( 'plugins_loaded', 'xo_functions_core_module_loader' );
 function xo_functions_core_module_loader() {
     $extend_path = XO_PLUGIN_DIR . 'extend/';
     
-    // 3a. Pull saved dashboard option configurations
-    $saved_settings = get_option( 'xo_functions_settings', array() );
+    // 3a. Pull saved configuration states safely based on site topology
+    $saved_settings = is_multisite() ? get_site_option( 'xo_functions_settings', array() ) : get_option( 'xo_functions_settings', array() );
     
     // 3b. Establish fallbacks for uninitialized site instances
     $saved_toggles = $saved_settings;
