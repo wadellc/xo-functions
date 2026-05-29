@@ -9,7 +9,7 @@
  * @subpackage Core
  * @category   Framework
  * @author     David W. Couch <http://wadellc.co>
- * @version    2.0.0
+ * @version    2.0.1
  * @since      1.0.0
  */
 
