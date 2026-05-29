@@ -9,7 +9,7 @@
  * @subpackage Admin
  * @category   Settings
  * @author     David W. Couch <http://wadellc.co>
- * @version    2.0.0
+ * @version    2.1.1
  * @since      1.2.0
  */
 

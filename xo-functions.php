@@ -4,14 +4,16 @@
  * Plugin Name: XO Functions
  * Description: WordPress and plugin support functions and utilities. Enviroment cues, helper functions, and more.
  * Author:      David W. Couch <http://wadellc.co>
- * Version:     2.1.0
+ * Version:     2.1.1
  * Text Domain: xo-functions
+ * Requires at least: 5.6
+ * Requires PHP:      7.4
  *
  * @package    XO_Functions
  * @subpackage Core
  * @category   Framework
  * @author     David W. Couch <http://wadellc.co>
- * @version    2.1.0
+ * @version    2.1.1
  * @since      1.0.0
  */
 
