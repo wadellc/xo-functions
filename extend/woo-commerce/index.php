@@ -9,7 +9,7 @@
  * @subpackage WooCommerce
  * @category   Loaders
  * @author     David W. Couch <http://wadellc.co>
- * @version    2.0.0
+ * @version    2.0.1
  * @since      1.3.2
  */
 
@@ -22,6 +22,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 $xo_woo_dir = dirname( __FILE__ );
 
 // Load all WooCommerce engine overrides safely
-if ( file_exists( $xo_woo_dir . '/xo-woocommerce.php' ) ) {
-    require_once $xo_woo_dir . '/xo-woocommerce.php';
+if ( file_exists( $xo_woo_dir . '/xo-woo-commerce.php' ) ) {
+    require_once $xo_woo_dir . '/xo-woo-commerce.php';
 }
