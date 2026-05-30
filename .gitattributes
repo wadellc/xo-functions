@@ -1,2 +1,8 @@
-# Auto detect text files and perform LF normalization
+# Ensure consistent line endings across platforms
 * text=auto
+
+# Block development configs from entering the deployment zip
+.gitignore export-ignore
+.gitattributes export-ignore
+.vscode/ export-ignore
+README.md export-ignore
