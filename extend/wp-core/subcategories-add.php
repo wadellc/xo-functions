@@ -2,14 +2,14 @@
 /**
  * Dynamic Subcategory Tree Optimization Tools.
  *
- * Adds clean "Add Sub-[Taxonomy]" deep linking parameters to hierarchical 
+ * Adds clean "Add Sub-[Taxonomy]" deep linking parameters to hierarchical
  * taxonomies and automatically isolates view context when sub-branches are managed.
  *
  * @package    XO_Functions
  * @subpackage Core_Utilities
  * @category   Taxonomies
  * @author     David W. Couch <http://wadellc.co>
- * @version    2.0.0
+ * @version    2.1.7
  * @since      1.3.2
  */
 
@@ -27,12 +27,20 @@ function xo_dynamic_subcategory_row_action( $actions, $tag ) {
     $taxonomy_object = get_taxonomy( $tag->taxonomy );
 
     if ( $taxonomy_object && $taxonomy_object->hierarchical ) {
-        $singular_name = $taxonomy_object->labels->singular_name;
-        $subcat_url    = admin_url( 'edit-tags.php?taxonomy=' . esc_attr( $tag->taxonomy ) . '&prefill_parent=' . absint( $tag->term_id ) . '&master_parent=' . absint( $tag->term_id ) );
-        $link_text     = sprintf( esc_html__( 'Add Sub-%s', 'xo-functions' ), ucwords( $singular_name ) );
-        
+        // FIX: $singular_name was previously unescaped in the link text — XSS vector
+        // from a custom taxonomy label. Always run through esc_html().
+        $singular_name = esc_html( ucwords( $taxonomy_object->labels->singular_name ) );
+        $subcat_url    = admin_url(
+            'edit-tags.php?taxonomy=' . esc_attr( $tag->taxonomy )
+            . '&prefill_parent=' . absint( $tag->term_id )
+            . '&master_parent=' . absint( $tag->term_id )
+        );
+        /* translators: %s: taxonomy singular name, e.g. "Category" */
+        $link_text = sprintf( esc_html__( 'Add Sub-%s', 'xo-functions' ), $singular_name );
+
         $actions['add_subcat'] = '<a href="' . esc_url( $subcat_url ) . '">' . $link_text . '</a>';
     }
+
     return $actions;
 }
 add_filter( 'tag_row_actions', 'xo_dynamic_subcategory_row_action', 10, 2 );
@@ -62,7 +70,7 @@ function xo_isolate_taxonomy_list_by_parent( $obj ) {
     if ( $master_id > 0 ) {
         $children = get_term_children( $master_id, $screen->taxonomy );
 
-        if ( is_array( $children ) ) {
+        if ( is_array( $children ) && ! is_wp_error( $children ) ) {
             $obj->query_vars['include'] = array_merge( array( $master_id ), $children );
         } else {
             $obj->query_vars['include'] = array( $master_id );

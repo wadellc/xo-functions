@@ -2,14 +2,14 @@
 /**
  * XO Functions Administrative Control Panel.
  *
- * Generates an adaptive administration interface that scales perfectly 
+ * Generates an adaptive administration interface that scales perfectly
  * between standalone single sites and global network admin environments.
  *
  * @package    XO_Functions
  * @subpackage Admin
  * @category   Settings
  * @author     David W. Couch <http://wadellc.co>
- * @version    2.1.1
+ * @version    2.1.7
  * @since      1.2.0
  */
 
@@ -30,9 +30,8 @@ if ( is_multisite() ) {
 }
 
 function xo_register_settings_menu() {
-    // Determine appropriate capability and hook wrapper based on context
     $capability = is_multisite() ? 'manage_network_options' : 'manage_options';
-    
+
     add_management_page(
         esc_html__( 'XO Functions Engine', 'xo-functions' ),
         esc_html__( 'XO Functions', 'xo-functions' ),
@@ -48,41 +47,51 @@ function xo_register_settings_menu() {
  * the post request directly to prevent data isolation across sub-sites.
  */
 add_action( 'admin_init', function() {
-    // Scenario A: Standard Single Site Registration
+    // Scenario A: Standard Single Site Registration.
     if ( ! is_multisite() ) {
         register_setting( 'xo_functions_group', 'xo_functions_settings', 'xo_sanitize_settings_input' );
         return;
     }
 
-    // Scenario B: Multisite Network Form Submission Interceptor
-    if ( isset( $_POST['xo_multisite_nonce'] ) && wp_verify_nonce( $_POST['xo_multisite_nonce'], 'xo_save_network_settings' ) ) {
-        if ( ! current_user_can( 'manage_network_options' ) ) {
-            wp_die( esc_html__( 'Unauthorized access.', 'xo-functions' ) );
-        }
+    // Scenario B: Multisite Network Form Submission Interceptor.
+    $nonce = isset( $_POST['xo_multisite_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['xo_multisite_nonce'] ) ) : '';
 
-        $raw_input = isset( $_POST['xo_functions_settings'] ) ? $_POST['xo_functions_settings'] : array();
-        $sanitized_data = xo_sanitize_settings_input( $raw_input );
-        
-        update_site_option( 'xo_functions_settings', $sanitized_data );
-        
-        // Redirect back to the network settings screen with a success flag
-        wp_safe_redirect( add_query_arg( array( 'page' => 'xo-functions-settings', 'updated' => 'true' ), network_admin_url( 'settings.php' ) ) );
-        exit;
+    if ( ! $nonce || ! wp_verify_nonce( $nonce, 'xo_save_network_settings' ) ) {
+        return;
     }
-});
+
+    if ( ! current_user_can( 'manage_network_options' ) ) {
+        wp_die( esc_html__( 'Unauthorized access.', 'xo-functions' ) );
+    }
+
+    $raw_input      = isset( $_POST['xo_functions_settings'] ) ? (array) wp_unslash( $_POST['xo_functions_settings'] ) : array();
+    $sanitized_data = xo_sanitize_settings_input( $raw_input );
+
+    update_site_option( 'xo_functions_settings', $sanitized_data );
+
+    // Redirect back to the network settings screen with a success flag.
+    wp_safe_redirect(
+        add_query_arg(
+            array( 'page' => 'xo-functions-settings', 'updated' => 'true' ),
+            network_admin_url( 'settings.php' )
+        )
+    );
+    exit;
+} );
 
 /**
- * 2b. Universal Sanitization Callback
+ * 2b. Universal Sanitization Callback.
  */
 function xo_sanitize_settings_input( $input ) {
-    $sanitized = array( 'is_initialized' => 1 );
+    $sanitized  = array( 'is_initialized' => 1 );
     $valid_keys = array( 'wp-core', 'wp-frontend', 'gravity-forms', 'woo-commerce' );
-    
+
     foreach ( $valid_keys as $key ) {
-        if ( isset( $input[ $key ] ) && '1' === $input[ $key ] ) {
+        if ( isset( $input[ $key ] ) && '1' === (string) $input[ $key ] ) {
             $sanitized[ $key ] = 1;
         }
     }
+
     return $sanitized;
 }
 
@@ -95,11 +104,14 @@ function xo_render_settings_page_html() {
         return;
     }
 
-    // Fetch the correct configuration data array based on the system state
-    $saved_settings = is_multisite() ? get_site_option( 'xo_functions_settings', array() ) : get_option( 'xo_functions_settings', array() );
-    
-    // Automatically pre-fill toggles if the system hasn't been configured yet
-    if ( ! isset( $saved_settings['is_initialized'] ) ) {
+    $saved_settings = is_multisite()
+        ? get_site_option( 'xo_functions_settings', array() )
+        : get_option( 'xo_functions_settings', array() );
+
+    // Re-use the centralised defaults helper defined in xo-functions.php.
+    if ( function_exists( 'xo_get_default_toggles' ) ) {
+        $saved_settings = xo_get_default_toggles( $saved_settings );
+    } elseif ( ! isset( $saved_settings['is_initialized'] ) ) {
         $saved_settings = array(
             'wp-core'       => 1,
             'wp-frontend'   => 1,
@@ -107,18 +119,21 @@ function xo_render_settings_page_html() {
             'woo-commerce'  => 1,
         );
     }
+
+    // Sanitize the query param before comparison — never echoed, but good practice.
+    $show_updated = isset( $_GET['updated'] ) && 'true' === sanitize_text_field( wp_unslash( $_GET['updated'] ) );
     ?>
     <div class="wrap">
         <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
         <p class="description">
-            <?php 
-            is_multisite() 
+            <?php
+            is_multisite()
                 ? esc_html_e( 'Configure global modules across your entire Network Fleet cleanly.', 'xo-functions' )
-                : esc_html_e( 'Toggle global modules across your production environment safely.', 'xo-functions' ); 
+                : esc_html_e( 'Toggle global modules across your production environment safely.', 'xo-functions' );
             ?>
         </p>
 
-        <?php if ( is_multisite() && isset( $_GET['updated'] ) && 'true' === $_GET['updated'] ) : ?>
+        <?php if ( is_multisite() && $show_updated ) : ?>
             <div class="notice notice-success is-dismissible"><p><strong><?php esc_html_e( 'Network settings saved successfully.', 'xo-functions' ); ?></strong></p></div>
         <?php endif; ?>
         <hr />
@@ -132,9 +147,9 @@ function xo_render_settings_page_html() {
             }
 
             $modules = array(
-                'wp-core'       => array( 'label' => esc_html__( 'Admin Core Tools', 'xo-functions' ), 'desc' => esc_html__( 'Enables administrative extensions and tree tools.', 'xo-functions' ) ),
-                'wp-frontend'   => array( 'label' => esc_html__( 'Frontend Utilities', 'xo-functions' ), 'desc' => esc_html__( 'Enables classes, selectors, and user shortcodes.', 'xo-functions' ) ),
-                'gravity-forms' => array( 'label' => esc_html__( 'Gravity Forms Engine', 'xo-functions' ), 'desc' => esc_html__( 'Optimizes active views and tracks submissions.', 'xo-functions' ), 'dep' => 'GFCommon' ),
+                'wp-core'       => array( 'label' => esc_html__( 'Admin Core Tools', 'xo-functions' ),      'desc' => esc_html__( 'Enables administrative extensions and tree tools.', 'xo-functions' ) ),
+                'wp-frontend'   => array( 'label' => esc_html__( 'Frontend Utilities', 'xo-functions' ),    'desc' => esc_html__( 'Enables classes, selectors, and user shortcodes.', 'xo-functions' ) ),
+                'gravity-forms' => array( 'label' => esc_html__( 'Gravity Forms Engine', 'xo-functions' ),  'desc' => esc_html__( 'Optimizes active views and tracks submissions.', 'xo-functions' ), 'dep' => 'GFCommon' ),
                 'woo-commerce'  => array( 'label' => esc_html__( 'WooCommerce Utilities', 'xo-functions' ), 'desc' => esc_html__( 'Optimizes product attributes and category layouts.', 'xo-functions' ), 'dep' => 'WooCommerce' ),
             );
             ?>
@@ -146,11 +161,11 @@ function xo_render_settings_page_html() {
                             <td>
                                 <fieldset>
                                     <label for="<?php echo esc_attr( $key ); ?>">
-                                        <input 
-                                            type="checkbox" 
-                                            name="xo_functions_settings[<?php echo esc_attr( $key ); ?>]" 
-                                            id="<?php echo esc_attr( $key ); ?>" 
-                                            value="1" 
+                                        <input
+                                            type="checkbox"
+                                            name="xo_functions_settings[<?php echo esc_attr( $key ); ?>]"
+                                            id="<?php echo esc_attr( $key ); ?>"
+                                            value="1"
                                             <?php checked( 1, isset( $saved_settings[ $key ] ) ); ?>
                                         />
                                         <?php echo esc_html( $data['desc'] ); ?>

@@ -9,7 +9,7 @@
  * @subpackage Core_Utilities
  * @category   Loaders
  * @author     David W. Couch <http://wadellc.co>
- * @version    2.0.0
+ * @version    2.1.7
  * @since      1.3.2
  */
 
@@ -18,10 +18,10 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// Define the module directory
+// Define the module directory.
 $xo_core_dir = dirname( __FILE__ );
 
-// Load all core utility modules safely
+// Load all core utility modules safely.
 if ( file_exists( $xo_core_dir . '/subcategories-add.php' ) ) {
     require_once $xo_core_dir . '/subcategories-add.php';
 }
