@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * 1. Slug to Body Class
- *
+ * // TODO: Update static 'page-' [post_type-] prefix to be dynamic based on queried object type (post, page, product, etc.)
  * Appends the post/page slug to the body class for specific CSS targeting.
  */
 add_filter( 'body_class', function( $classes ) {
@@ -35,7 +35,11 @@ add_filter( 'body_class', function( $classes ) {
 
 /**
  * 2. Enable Shortcodes for Menus and Widgets
- *
+ * //ToDo:  Consider Dropping. Menus and Widgets are both moving towards block-based implementations that support native shortcode parsing. 
+ *          This may be redundant and could cause conflicts with the new block-based widgets screen if left in place too long.
+ * //Update: As of 2024, the classic widgets screen is still widely used and the new block-based widgets screen does not yet support shortcode
+ *           parsing in all widget types. This filter remains relevant for ensuring backward compatibility and supporting sites that have not
+ *           transitioned to the block-based widgets screen. Perform site audit.
  * Parses shortcodes inside navigation items and legacy widgets using modern wp_do_shortcode.
  */
 add_action( 'init', function() {

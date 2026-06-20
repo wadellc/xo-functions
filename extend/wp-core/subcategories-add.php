@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * 1. Localized "Add Sub-[Taxonomy]" Action Row Insertion
- *
+ * //ToDo: Fix plural of Categoy. Not Categorys. Maybe use the existing labels to pull the plural form instead of hardcoding "Sub-[Singular]"?
  * Appends custom deep links into standard action layouts for hierarchical tables.
  */
 function xo_dynamic_subcategory_row_action( $actions, $tag ) {
