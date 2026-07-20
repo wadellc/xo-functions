@@ -1,0 +1,125 @@
+/* General Woo overides colors etc. */
+.woocommerce-message,
+.woocommerce-info{
+    border-top-color: #007a89;
+}
+.woocommerce-info::before,
+.woocommerce-message::before{
+    color: #007a89;
+}
+
+p.stock.out-of-stock {
+    color: red;
+}
+
+.woocommerce #respond input#submit.alt, 
+.woocommerce a.button.alt, 
+.woocommerce button.button.alt, 
+.woocommerce input.button.alt {
+    background-color: #007a89;
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+}
+
+.woocommerce #respond input#submit.alt, 
+.woocommerce a.button.alt, 
+.woocommerce button.button.alt, 
+.woocommerce input.button.alt {
+    background-color: #007a89;
+}
+.woocommerce #respond input#submit.alt:hover, 
+.woocommerce a.button.alt:hover, 
+.woocommerce button.button.alt:hover, 
+.woocommerce input.button.alt:hover {
+    background-color: #007a89;
+    color: #fff;
+}
+.woocommerce #respond input#submit.alt.disabled, 
+.woocommerce #respond input#submit.alt.disabled:hover, 
+.woocommerce #respond input#submit.alt:disabled, 
+.woocommerce #respond input#submit.alt:disabled:hover, 
+.woocommerce #respond input#submit.alt:disabled[disabled], 
+.woocommerce #respond input#submit.alt:disabled[disabled]:hover, 
+.woocommerce a.button.alt.disabled, 
+.woocommerce a.button.alt.disabled:hover, 
+.woocommerce a.button.alt:disabled, 
+.woocommerce a.button.alt:disabled:hover, 
+.woocommerce a.button.alt:disabled[disabled], 
+.woocommerce a.button.alt:disabled[disabled]:hover, 
+.woocommerce button.button.alt.disabled, 
+.woocommerce button.button.alt.disabled:hover, 
+.woocommerce button.button.alt:disabled, 
+.woocommerce button.button.alt:disabled:hover, 
+.woocommerce button.button.alt:disabled[disabled], 
+.woocommerce button.button.alt:disabled[disabled]:hover, 
+.woocommerce input.button.alt.disabled, 
+.woocommerce input.button.alt.disabled:hover, 
+.woocommerce input.button.alt:disabled, 
+.woocommerce input.button.alt:disabled:hover, 
+.woocommerce input.button.alt:disabled[disabled], 
+.woocommerce input.button.alt:disabled[disabled]:hover {
+    background-color: #007a89;
+    color: #fff;
+}
+
+
+/* CSS for WooCommerce Template Integration 
+ * Note PHP Templates are still under wp-content/themes/[theme]/woocommerce
+ * 
+ */ 
+body.archive.tax-product_cat article, body.blog article {
+    border: 0;
+    padding: 10px 0;
+    margin-bottom: 60px;
+}
+
+
+/* Product Page */
+form.variations_form th.label {
+    display: none;
+}
+
+form.variations_form select#sizes {
+    width: 80%;
+    margin-right: 5%;
+}
+
+form.variations_form .quantity {
+    float: left;
+    margin: 5px;
+}
+
+
+
+
+/* UTRF Validation:  Requirements for Licensing */
+.alert-danger {
+    color: #fff;
+    background-color: #ff7878;
+    border-color: #ff7878;
+}
+
+.graypanel {
+    background-color: #f5f5f5;
+    margin: 0 0 18px 0;
+    padding: 30px 50px;
+}
+
+.graypanel input[type="checkbox"], .graypanel input[type="image"], .graypanel input[type="radio"] {
+    width: auto;
+    margin-left: 10px;
+}
+
+ul.list-unstyled{
+    margin-left: 0;
+}
+ul.list-unstyled li{
+    padding-left: 0;
+    list-style: none;
+}
+
+a.termslink {
+    font-weight: bold;
+    text-decoration: underline;
+    color: #007a89;
+}

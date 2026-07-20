@@ -1,0 +1,101 @@
+#dvr .container {
+  width: 100%;
+  padding: 10px; }
+
+/*#dvr .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 10px; }
+
+#dvr .col-md-6 {
+  position: relative;
+  width: 100%;
+  min-height: 1px; }*/
+
+@media (min-width: 576px) {
+  #dvr .container {
+    max-width: 540px; } }
+
+@media (min-width: 768px) {
+  #dvr .container {
+    max-width: 720px; }
+  
+/*  #dvr .col-md-6 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%; } */
+  }
+
+@media (min-width: 992px) {
+  #dvr .container {
+    max-width: 960px; } }
+
+#dvr .page-wrapper .title {
+  width: 100%;
+  font-family: "Open Sans", sans-serif;
+  color: #58595b;
+  letter-spacing: 0.5px;
+  font-size: 26px;
+  font-weight: 600;
+  text-align: center; }
+
+#dvr .page-wrapper .sub-title {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  font-family: "Open Sans", sans-serif;
+  color: #58595b;
+  font-size: 14pt;
+  justify-content: space-between;
+  margin-bottom: 7px; }
+
+#dvr .page-wrapper .charts {
+  margin-bottom: 20px; }
+  #dvr .page-wrapper .charts .progress {
+    background-image: linear-gradient(-45deg, rgba(255, 255, 255, 0.5) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.5) 75%, transparent 75%, transparent) !important;
+    background-size: 1rem 1rem;
+    background-color: #298295;
+    height: 28px;
+    border-radius: 0;
+    margin: 5px 0; }
+    #dvr .page-wrapper .charts .progress .progress-bar {
+      background: #0c2e4d !important; }
+  #dvr .page-wrapper .charts .amounts {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; }
+    #dvr .page-wrapper .charts .amounts .unit-amount {
+      color: #58595b;
+      min-width: 50px;
+      font-size: 16px;
+      font-family: "Open Sans", sans-serif; }
+    #dvr .page-wrapper .charts .amounts .description {
+      text-align: center;
+      line-height: 1.5em; }
+      #dvr .page-wrapper .charts .amounts .description p {
+        margin: 0;
+        font-size: 18px;
+        color: #58595b;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 700; 
+      padding-bottom: 5px;
+    }
+      #dvr .page-wrapper .charts .amounts .description span {
+        color: #bd4c34; }
+      #dvr .page-wrapper .charts .amounts .description div {
+        font-size: 18px;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 500; }
+      #dvr .page-wrapper .charts .amounts .description .red {
+        color: #bd4c34; }
+      #dvr .page-wrapper .charts .amounts .description .green {
+        color: #336633; }
+
+#dvr .page-wrapper .description {
+  color: #58595b;
+  font-size: 14px;
+  font-family: "Open Sans", sans-serif; }

@@ -1,0 +1,161 @@
+/* 
+ * Styles for Spotlight Module
+ */
+
+ div.spotlight-wrapper {
+    padding: 0px 0 40px;
+    box-shadow: 0px 3px 10px #ccc;
+    margin: 10px 0;
+}
+
+
+
+ div.slm-toggle {
+    text-align: center;
+    border-bottom: 1px solid;
+    width: 60%;
+    margin: auto;
+    white-space: nowrap;
+    min-width: 400px;
+}
+
+div.slm-toggle span {
+    background-color: #0c2e4d;
+    padding: 10px 10px 10px 33px;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    top: 10px;
+    z-index: 2;
+    font-weight: bold;
+    /*left: -33px;*/
+}
+
+div.slm-toggle span:after {
+    content: '-';
+    width: 16px;
+    height: 16px;
+    background-color: #36a2b9;
+    border-radius: 50%;
+    display: inline-block;
+    border: 5px solid #36a2b9;
+    line-height: 15px;
+    font-weight: 600;
+    margin: 0px 20px;
+    box-sizing: initial;
+}
+div.slm-toggle.closed span:after {
+    content: '+';
+}
+
+
+
+.spotlight-container a.post-edit-link {
+    font-style: normal;
+    font-family: 'Open Sans';
+    text-transform: uppercase;
+    font-size: small;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.spotlight-container {
+    position: relative;
+    height: 100%;
+    min-height: 130px;
+    background-color: #0c2e4d;
+    top: -2px;
+    width: 97%;
+    margin: auto;
+    box-shadow: 0px 0px 5px #000;
+}
+
+.spotlight-container  .swiper-slide {
+    height: auto;
+}
+
+.spotlight-item {
+	/* Fill container less height of bottom div */
+    min-height: 100%;
+    margin-bottom: -70px;
+    padding: 65px 90px 70px;
+}
+
+.guppe-slm .spotlight-item img.q-mark {
+    position: absolute;
+    left: 26px;
+    height: 36px;
+    top: 52px;
+}
+
+.spotlight-attribution {
+    text-align: right;
+    font-family: Lora;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 24px;
+    padding-bottom: 20px;
+}
+
+.spotlight-source {
+    background-color: #ffc831;
+    white-space: nowrap;
+    font-family: 'Open Sans';
+    font-size: 20px;
+    font-weight: bold;
+    padding: 20px 60px;
+}
+
+.source-wrap {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 90%;
+    vertical-align: bottom;
+    display: inline-block;
+}
+
+
+.spotlight-source a {
+	
+}
+.spotlight-source:hover {
+    background-color: #298295;
+    color: #fff;
+}
+.spotlight-source:hover a{
+    color: #fff;
+}
+
+.spotlight-container  .swiper-slide {
+		text-align: center;
+		font-size: 18px;
+		background: #fff;
+
+		/* GUPPE Mods */
+		min-height: 294px;
+		margin: 20px 0 50px;
+	}
+
+
+div.spotlight-quote {
+    font-family: 'Open Sans';
+    font-size: 20px;
+    line-height: 32px;
+    color: #000;
+    text-align: left;
+    font-weight: unset;
+    padding-left: unset;
+    letter-spacing: unset;
+    margin-bottom: 10px;
+}
+
+.spotlight-container .swiper-button-next, 
+.spotlight-container .swiper-button-prev {
+    position: absolute;
+    bottom: 15px;
+    width: 20px;
+    height: 18px;
+    color: white;
+    top: unset;
+}

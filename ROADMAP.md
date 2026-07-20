@@ -1,6 +1,7 @@
-# XO Functions Framework — Operations Roadmap & Changelog
+# XO Functions Framework — Operations Roadmap
 
-This document tracks the active development goals, feature backlog, and milestone history for the XO Functions utility stack.
+This document tracks active development goals and feature backlog for the XO Functions utility
+stack. Release history lives in [CHANGELOG.md](CHANGELOG.md).
 
 ---
 
@@ -21,18 +22,25 @@ The primary focus of this milestone is visibility and quick diagnostics for mana
 - [ ] **Remote Log Aggregation:** Sync critical site alerts back to the central MainWP Hub repository.
 - [ ] **Third-Party Integrations:** Add Slack/Discord webhook alerts for severe, unhandled plugin drops.
 - [ ] **Extended Topologies:** Add custom toggles for advanced environment caching layers (Redis/Memcached sniffers).
+- [ ] **Mega Menu Framework Support:** Generalize the dynamic WooCommerce mega-menu engine being built
+  in `wagners-site-extensions` (`includes/nav-menus.php` — see that plugin's ROADMAP.md Phase 0) into
+  a reusable XO Functions module, so other managed-fleet sites can opt into category/Smart-Item-driven
+  mega menus without a site-specific plugin. Not scoped — evaluate once the Wagner's implementation is
+  proven out; it currently has hard dependencies (WooCommerce, a specific theme's `primary-menu`
+  location) that would need to be abstracted first.
+- [ ] **Duplicate Menu Item:** Add a "Duplicate" action to each item row on Appearance > Menus (any
+  menu, any theme). Surfaced while building the Wagner's mega-menu (`wagners-site-extensions`) — not
+  WooCommerce- or Wagner's-specific, so it belongs here rather than in that client plugin. Not scoped.
+- [ ] **Evaluate archived per-client forks (`.wip/`):** `.wip/` holds ~11 pre-consolidation,
+  per-client XO Functions forks (e.g. `lakemoor-extensions`, `utrf-2022q3-extensions`,
+  `wadellc-exo-functions`) from before this plugin became one shared codebase. Needs a real
+  evaluation pass, not a quick skim — most functions in there were written for one site and won't
+  generalize safely, but some may be worth promoting into a proper module here (see "Modules"
+  pattern in AGENTS.md), and the rest can likely be dropped once reviewed. Not scoped as a task
+  yet; flagging so this archive isn't silently forgotten.
 
 ---
 
-## 📜 Changelog History
-
-### v2.1.3
-- **Optimized:** Stripped out the redundant `XO_VERSION` global PHP constant.
-- **Fixed:** Resolved the WordPress 6.7+ `_load_textdomain_just_in_time` architectural warning by moving version data exclusively to the core DocBlock plugin header.
-
-### v2.1.2
-- **Infrastructure:** Initialized the automated Kinsta cloud deployment pipeline using local Git hook archives and SSH/SCP secure tunnels.
-- **Framework:** Injected dynamic `plugin-update-checker` (PUC) framework linking child endpoints to the MainWP template provisioning vault.
-
-### v2.0.0
-- **Architectural Shift:** Rebuilt the plugin with an isolated module loader loop checking saved configuration toggles before loading extended components.
+Release history lives in [CHANGELOG.md](CHANGELOG.md), not here — this file tracks what's next,
+not what shipped. Move an item's notes to CHANGELOG.md and remove it from this file when it's
+done, don't leave completed work listed above.

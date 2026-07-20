@@ -1,0 +1,12 @@
+/* Plugin Name: Exo Functions
+ * Author: David W. Couch
+ * Version: 1.0.0
+ * Description: Styles supporting Exo Functions and overrides
+ * ToDo:
+ * - Establish globals
+ * - Establish seperate mod specific sheets to include
+ ******************************************************/
+
+ body{
+ 	border: transparent 0px solid;
+ }

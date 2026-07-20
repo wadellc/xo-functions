@@ -5,3 +5,6 @@ Thumbs.db
 # Ignore local IDE / Editor configs
 .vscode/
 *.code-workspace
+
+# Local deploy tool config/logs (D:/Development/_scripts/deploy/)
+.deploy/

@@ -1,0 +1,183 @@
+/* Bootstrap Overrides and globals foe GUPPE Datadash */
+
+
+/* Data Page Globals */
+    body.page-data h1,
+    body.page-data h3,
+    body.page-data h5,
+    body.page-data p,
+    body.page-data a{
+        font-family: 'Open Sans' !important;
+    }
+
+    body.page-data h1 {
+        font-size: 54px;
+        line-height: 62px;
+        margin-bottom: 7px;
+    }
+
+    div.d3viz p {
+        padding-bottom: 0;
+    }
+
+    body.page-data a.nectar-button span {
+        white-space: nowrap;
+    }
+
+
+
+
+
+
+
+
+/* Header Fixes */
+body.page-data #header-outer[data-format="default"] #top .span_9 {
+    flex-basis: unset;
+    flex-grow: unset;
+    max-width: unset;
+    margin-left: auto;
+    margin-right: unset;
+    -webkit-box-flex: unset;
+    padding-left: unset;
+    padding-right: unset;
+    min-height: unset;
+    line-height: 30px;
+    font-size: 20px;
+}
+
+@media only screen and (min-width: 1000px){
+	body.page-data #header-outer:not([data-format="left-header"]) #top .span_9, 
+	body.page-data #header-outer:not([data-format="left-header"]) #top .span_3 {
+	    display: -webkit-flex;
+	    display: flex;
+	    flex-basis: unset;
+	    flex-grow: unset;
+	    max-width: unset;
+	    -webkit-box-flex: unset;
+	    float: left;
+	}	
+}
+
+@media (min-width: 690px){
+    body.page-data #header-outer:not([data-format="left-header"]) #top .span_9 {
+        width: 69.5%;}
+    body.page-data #header-outer:not([data-format="left-header"]) #top .span_3 {
+        width: 23.5%;}
+}
+
+
+
+
+
+
+@media (max-width: 768px) {
+    /* Stack Buttons */
+    body.page-data .vc_row.vc_row-flex.vc_row-o-equal-height > .span_12.center,
+    html body.page-data .vc_row-fluid > .span_12 {
+        display: grid;
+    }
+
+
+    /* Remove BootStrap Col on Salient Columns */
+    body.page-data .row_col_wrap_12_inner.col.span_12.left {
+        display: revert;
+        max-width: unset;
+    }
+}
+
+
+
+
+/* Remove padding around Vizs on mobile */
+@media only screen and (min-width: 480px) and (max-width: 690px){
+    body .d3viz .container {
+        max-width: 520px;
+        padding: 0 !important;
+    }
+}
+
+
+
+
+
+/* Full width items - span_12 - Vootstrap overide - Extending Salient. */
+html body.page-data .vc_row-fluid > .span_12, .full-page-inner > .span_12, .full-page-inner > .container > .span_12 {
+    /*display: flex;
+    display: -ms-flexbox;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    float: none;*/
+
+    flex-basis: unset;
+    flex-grow: unset;
+    max-width: unset;
+    padding-right: unset;
+    padding-left: unset;
+}
+
+
+
+div#sum.d3viz .vc_col-sm-4 {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Viz 2 - Map */
+#rbs .container .page-wrapper .detail-wrapper .national-stats .body .top-item .top-item-icon img {
+    display: inline-block;
+}
+
+
+
+/* Rapid Fixes during meeting on 5/11/21 */
+body.page-data .wpb_wrapper >div {
+    margin-bottom: 0;
+}
+
+#rbs .container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0;
+}
+
+
+html body.page-data .vc_row-fluid > .span_12, .full-page-inner > .span_12, .full-page-inner > .container > .span_12 {
+    flex-basis: unset;
+    flex-grow: unset;
+    max-width: unset;
+    padding-right: unset;
+    padding-left: unset;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+div#mrq {
+     padding: 0; 
+}
+
+div#mrq .page-wrapper .images .item img {
+    float: left;
+    margin: 0px 20px;
+    object-fit: contain;
+    width: 80px;
+    height: 80px;
+}
+
+#rbc .container {
+    padding: 0;
+}
+
+
+#rbc .row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -25px;
+    margin-left: -25px;
+}

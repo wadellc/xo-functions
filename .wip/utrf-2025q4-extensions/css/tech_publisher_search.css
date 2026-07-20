@@ -1,0 +1,44 @@
+/*** *** Inteum Widgets ***/
+/* 
+ * Technology Search Box 
+ */
+
+.inteum_widget.tsb {
+    margin-bottom: 20px;
+}
+
+#technologysearchbox input[type="button"]:after {
+    /* Chrome OK */
+      font-family: FontAwesome;
+      content:"\f002";
+      font-weight: 900;
+
+      font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f002";
+}
+#technologysearchbox input[type="button"] {
+    /* Chrome OK */
+      /*font-family: FontAwesome;*/
+      color: #fff;
+      background-color: #ff8200;
+      font-size: 21px;
+      line-height: 24px;
+      padding: 4px 6px;
+      -webkit-border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+      border-radius: 0 !important;
+}
+
+#technologysearchbox input#techsearchid {
+    height: 33px;
+    padding: 5px;
+    font-size: 14px;
+    display: inline-block;
+    margin: -7px -4px 0 0;
+    outline: none;
+    vertical-align: text-top;
+	width:80% !important;
+}
+
+input#techsearchid + input {
+  font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

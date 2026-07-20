@@ -1,0 +1,247 @@
+/* 
+ * 
+ * Plugin Overrides 
+ */
+
+ /* 
+  * Gravity Forms Overides */
+
+/* Ensure Gravity Form buttons match your Forest Green */
+.gform_wrapper.gravity-theme .gform_footer input[type="submit"],
+.gform_wrapper.gravity-theme .gform_button {
+    background-color: #2F4D2F !important;
+    border: none !important;
+    color: #ffffff !important;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Gravity Forms Input Fields */
+.gform_wrapper.gravity-theme .gfield input[type="text"],
+.gform_wrapper.gravity-theme .gfield input[type="email"],
+.gform_wrapper.gravity-theme .gfield textarea {
+    background-color: #F4F1EA !important;
+    border: 1px solid #d1cec7;
+}
+
+
+/* 
+ * WooCommerce Overides */
+
+/* Remove the 'Sale!' badge or make it subtle */
+.woocommerce span.onsale {
+    background-color: #2F4D2F !important;
+}
+
+/* Polish the product tabs (Description, Reviews) */
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active {
+    border-top-color: #2F4D2F !important;
+}
+
+
+
+
+/* 
+ * 
+ * Theme Customizations Overrides
+ */
+
+/* --- Sticky Header --- */
+.main-sticky-wrapper {
+    position: relative;
+    z-index: 9999;
+    background: #ffffff;
+    width: 100%;
+}
+
+/* The Fixed State */
+body.is-scrolled .main-sticky-wrapper {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* --- Logo Shrink & Centering --- */
+.logo-shrink-group {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center !important; /* Vertical Center */
+    align-items: flex-start !important;
+    min-height: 90px; /* Adjust to fit logo+tagline */
+    transition: min-height 0.3s ease, padding 0.3s ease;
+}
+
+.logo-shrink-group .custom-logo {
+    transition: max-height 0.3s ease;
+    height: auto;
+    width: 405px;
+}
+
+/* --- Scrolled Styles --- */
+body.is-scrolled .logo-shrink-group {
+    min-height: 60px !important; /* Shrunk box height */
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+body.is-scrolled .custom-logo {
+    max-height: 35px !important; /* The 50% shrink */
+    width: auto !important;
+}
+
+body.is-scrolled .wp-block-site-tagline {
+    display: none !important;
+}
+
+/* Shrink Nav group padding */
+body.is-scrolled .sticky-nav-group {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+:root :where(.is-layout-flow) > * {
+  margin-block-start: 0.5rem;
+}
+
+
+
+
+/* 
+ * Begin Mega Menu */
+/* 
+
+/* Outer HTML Psuedo Code Specificity Notes:
+
+div.wp-block-group.sticky-nav-group
+    div.wp-block-columns
+        div.wp-block-column
+            nav.wagner-mega-menu.wp-block-navigation
+                div.wp-block-navigation__responsive-container#modal-2
+                    div.wp-block-navigation__responsive-close
+                        div.wp-block-navigation__responsive-dialog
+                            div.wp-block-navigation__responsive-container-content
+
+                                <!-- Main Menu Wrapper UL -->
+
+                                ul.wp-block-navigation__container.wagner-mega-menu.wp-block-navigation
+                                    li.wp-block-navigation-item.wp-block-navigation-submenu
+                                        a.wp-block-navigation-item__content
+                                            span.wp-block-navigation-item__label
+                                            
+                                                <!-- Main Menu Item -->
+
+                                            /span
+                                        /a
+
+                                        <!-- Sub Menu Wrapper UL 4 Columns -->
+
+                                        ul.wp-block-navigation__submenu-container.wp-block-navigation-submenu
+                                            li.wp-block-navigation-item.menu-heading.wp-block-navigation-submenu
+                                                a.wp-block-navigation-item__content
+                                                    span.wp-block-navigation-item__label
+                                                    
+                                                        <!-- Column Heading / Product Sub Category -->
+
+                                                    /span
+                                                /a
+
+                                                ul.wp-block-navigation__submenu-container.menu-heading.wp-block-navigation-submenu
+                                                    li.wp-block-navigation-item.wp-block-navigation-link
+                                                        a.wp-block-navigation-item__content
+                                                            span.wp-block-navigation-item__label
+
+                                                             <!-- Column Item / Product Sub Sub Category -->
+
+/*
+
+/* 1. THE RELATIVE ANCHOR */
+/* We make the sticky-nav-group the 'parent' for our absolute menu */
+header.site-header div.sticky-nav-group {
+    position: relative;
+}
+
+/* 2. THE MEGA MENU CONTAINER (The "Sub Menu Wrapper UL") */
+header.site-header nav.wagner-mega-menu ul.wp-block-navigation__submenu-container {
+    /* Layout Reset */
+    display: block; 
+    position: absolute;
+    
+    /* Full Width Breakout */
+    /* Since the parent sticky-nav-group is full width, we align to it */
+    left: 0;
+    width: 100vw;
+    margin-left: calc(-4%); /* Offset the 4% padding of the container */
+    
+    /* Position exactly at the bottom of the sticky bar */
+    top: 100%; 
+    
+    /* Styling */
+    background-color: #ffffff;
+    padding: 3rem 10%;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    border: none;
+    
+    /* NEWSPAPER FLOW (4 Columns) */
+    column-count: 4;
+    column-gap: 40px;
+    column-fill: auto;
+
+    /* Handle WordPress's default hiding logic */
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* 3. THE COLUMN HEADINGS (Sub Category "Men's Golf Clubs") */
+header.site-header nav.wagner-mega-menu li.menu-heading {
+    display: block; /* Kills WP Flexbox */
+    width: 100%;
+    margin-bottom: 2rem;
+    break-inside: avoid; /* Keeps headings and their lists together */
+}
+
+/* Fix for Vertical Lettering */
+header.site-header nav.wagner-mega-menu li.menu-heading > a.wp-block-navigation-item__content {
+    display: block;
+    white-space: nowrap; /* Forces text to stay on one line */
+    width: 100%;
+    font-weight: 800;
+    text-transform: uppercase;
+    border-bottom: 2px solid #000;
+    padding: 0 0 10px 0;
+    margin-bottom: 15px;
+}
+
+/* 4. THE SUB-LINKS LIST (The 3rd level UL) */
+header.site-header nav.wagner-mega-menu li.menu-heading ul.wp-block-navigation__submenu-container {
+    /* Reset all WordPress Submenu defaults */
+    display: block;
+    position: static;
+    visibility: visible;
+    opacity: 1;
+    width: 100%;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    column-count: 1; /* Reset the columns for the sub-list */
+}
+
+/* 5. INDIVIDUAL LINK ITEMS */
+header.site-header nav.wagner-mega-menu li.menu-heading ul li.wp-block-navigation-item {
+    display: block;
+    padding: 4px 0;
+}
+
+header.site-header nav.wagner-mega-menu li.menu-heading ul li a.wp-block-navigation-item__content {
+    padding: 0;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+/* 6. THE HOVER LOGIC */
+/* We keep WP's classes but ensure our block display wins */
+header.site-header nav.wagner-mega-menu li.wp-block-navigation-item:hover > ul.wp-block-navigation__submenu-container {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}

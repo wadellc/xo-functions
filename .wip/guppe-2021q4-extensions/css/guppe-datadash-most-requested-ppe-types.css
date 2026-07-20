@@ -1,0 +1,116 @@
+/*#mrq .container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto; }
+
+#mrq .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px; }
+
+#mrq .col-md-6 {
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px; }*/
+
+div#mrq {
+    padding: 15px;
+}
+
+@media (min-width: 576px) {
+  #mrq .container {
+    max-width: 540px; } }
+
+@media (min-width: 768px) {
+  #mrq .container {
+    max-width: 720px; }
+  #mrq .col-md-6 {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%; } }
+
+@media (min-width: 992px) {
+  #mrq .container {
+    max-width: 960px; } }
+
+#mrq .page-wrapper .title {
+  font-size: 28px;
+  color: #58595b;
+  font-weight: 600;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  word-wrap: none;
+  word-spacing: 0.5px; }
+
+#mrq .page-wrapper .btn-group {
+    margin: 1rem 0 1rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+}
+  #mrq.d3viz .page-wrapper .btn-group .left {
+    border-top-left-radius: 20px !important;
+    border-bottom-left-radius: 20px !important; }
+  #mrq.d3viz .page-wrapper .btn-group .right {
+    border-top-right-radius: 20px !important;
+    border-bottom-right-radius: 20px !important; }
+  #mrq .page-wrapper .btn-group button {
+    width: 150px;
+    height: 35px;
+    background-color: #edecef;
+    border: 1px solid #58595b;
+    color: #58595b;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px; }
+  #mrq .page-wrapper .btn-group button:focus,
+  #mrq .page-wrapper .btn-group button.active {
+    outline: 0;
+    background-color: #ffffff;
+    font-weight: 600; }
+
+#mrq .page-wrapper .images {
+  margin-top: 1rem;
+  grid-template-rows: 1fr 1fr; }
+  #mrq .page-wrapper .images .item {
+    height: 140px;
+    align-items: center;
+    display: flex; }
+    #mrq .page-wrapper .images .item .number {
+      font-family: "Open Sans", sans-serif;
+      font-weight: bold;
+      font-size: 40pt;
+      color: #a7a9ac;
+      float: left; }
+    #mrq .page-wrapper .images .item img {
+      float: left;
+      margin: 0px 50px;
+      object-fit: contain; 
+        width: 80px;
+        height: 80px;}
+    #mrq .page-wrapper .images .item .label {
+      font-family: "Open Sans", sans-serif;
+      font-weight: bold;
+      font-size: 20px;
+      color: #58595b; }
+  #mrq .page-wrapper .images .divider {
+    width: 100%;
+    height: 0.5px;
+    background-color: #a7a9ac; }
+
+#mrq .page-wrapper .description {
+  margin-top: 1rem;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Open Sans", sans-serif;
+  color: #58595b; }

@@ -1,0 +1,47 @@
+:9
+.youtube-embed[ended=false] .youtube-embed__player {
+	display:block;
+}
+
+
+:13
+.youtube-embed[ended=false] .youtube-embed__end-screen-overlay {
+	display:none;
+}
+
+:20
+.youtube-embed[ended=true] .youtube-embed__player {
+	display:none;
+}
+
+
+:24
+.youtube-embed[ended=true] .youtube-embed__end-screen-overlay {
+	display:block;
+}
+
+
+:31
+.youtube-embed[ended=false] .youtube-embed__end-screen-overlay {
+	position:absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-position: center;
+	background-repeat: no-repeat;
+	transition: opacity .25s;
+	background-size: cover;
+	cursor: pointer;
+}
+
+
+:44
+.youtube-embed__end-screen-background {
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 100%;
+	display: block;
+}
