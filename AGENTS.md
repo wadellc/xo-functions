@@ -58,9 +58,15 @@ Each module is a folder with its own `index.php` loader (defensive `file_exists(
 matching the top-level pattern) plus one or more implementation files:
 
 - **`wp-core/`** — admin-side taxonomy tooling (`subcategories-add.php`: "Add Sub-[Taxonomy]"
-  deep links on hierarchical taxonomy list tables). Also holds two `wip-*` files
-  (dynamic-taxonomy-driven nav menus) that are **not required by any loader** — prototype code,
-  not live; see ROADMAP.md's mega-menu generalization item before wiring these up.
+  deep links on hierarchical taxonomy list tables) and `search-url-slug.php` (redirects `?s=`
+  search URLs to a clean `/search/{term}/` slug, backed by its own rewrite rule + a one-time
+  `flush_rewrite_rules()` guarded by an option flag; fixes a bare-redirect-with-no-rewrite-rule
+  bug that had been copy-pasted across several past one-off client projects — see CHANGELOG.md).
+  Both files are unconditionally bundled under the single `wp-core` toggle, matching this
+  module's existing pattern — no separate opt-in, so any site with `wp-core` already enabled
+  picks up new wp-core features on update. The prototype dynamic-taxonomy-driven nav menu files
+  formerly here now live in `.wip/` (not required by any loader) — see ROADMAP.md's mega-menu
+  generalization item before wiring those up.
 - **`wp-frontend/`** — `wp-frontend.php` (body-class additions, theme-level filters) +
   `shortcodes.php` (shortcode registry, e.g. `[todays_date]`, guarded with `shortcode_exists()`
   so a theme/other plugin registering the same tag wins).

@@ -9,7 +9,7 @@
  * @subpackage Core_Utilities
  * @category   Loaders
  * @author     David W. Couch <http://wadellc.co>
- * @version    2.1.7
+ * @version    2.1.8
  * @since      1.3.2
  */
 
@@ -24,4 +24,8 @@ $xo_core_dir = dirname( __FILE__ );
 // Load all core utility modules safely.
 if ( file_exists( $xo_core_dir . '/subcategories-add.php' ) ) {
     require_once $xo_core_dir . '/subcategories-add.php';
+}
+
+if ( file_exists( $xo_core_dir . '/search-url-slug.php' ) ) {
+    require_once $xo_core_dir . '/search-url-slug.php';
 }
