@@ -28,9 +28,15 @@ The primary focus of this milestone is visibility and quick diagnostics for mana
   mega menus without a site-specific plugin. Not scoped — evaluate once the Wagner's implementation is
   proven out; it currently has hard dependencies (WooCommerce, a specific theme's `primary-menu`
   location) that would need to be abstracted first.
-- [ ] **Duplicate Menu Item:** Add a "Duplicate" action to each item row on Appearance > Menus (any
-  menu, any theme). Surfaced while building the Wagner's mega-menu (`wagners-site-extensions`) — not
-  WooCommerce- or Wagner's-specific, so it belongs here rather than in that client plugin. Not scoped.
+- [ ] **Duplicate Menu Item:** Add a "Duplicate"/"Clone this item" action to each item row on
+  Appearance > Menus (any menu, any theme) — placed alongside the existing bottom utility-links row
+  each item already has (Original/Move/Cancel/Remove). Surfaced while building the Wagner's mega-menu
+  (`wagners-site-extensions`) — not WooCommerce- or Wagner's-specific, so it belongs here rather than
+  in that client plugin. Not scoped.
+- [ ] **Drag-to-add Menu Items:** Appearance > Menus currently requires clicking "Add to Menu" per item
+  from the left-side panels (Pages, Custom Links, product categories, etc.); David wants to drag an
+  item straight from those panels into the menu structure instead. Surfaced during Wagner's mega-menu
+  build (`wagners-site-extensions`) — generic WP admin UX, not Wagner's-specific. Not scoped.
 - [ ] **Recommended Plugins settings screen:** Add a "Recommended Plugins" section (likely on the
   existing Tools > XO Functions page alongside the module toggles, rather than a separate page — TBD)
   listing David's preferred plugins for new fleet-site setups. Not scoped — still open: (1) the actual
