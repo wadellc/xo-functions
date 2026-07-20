@@ -31,6 +31,13 @@ The primary focus of this milestone is visibility and quick diagnostics for mana
 - [ ] **Duplicate Menu Item:** Add a "Duplicate" action to each item row on Appearance > Menus (any
   menu, any theme). Surfaced while building the Wagner's mega-menu (`wagners-site-extensions`) — not
   WooCommerce- or Wagner's-specific, so it belongs here rather than in that client plugin. Not scoped.
+- [ ] **Recommended Plugins settings screen:** Add a "Recommended Plugins" section (likely on the
+  existing Tools > XO Functions page alongside the module toggles, rather than a separate page — TBD)
+  listing David's preferred plugins for new fleet-site setups. Not scoped — still open: (1) the actual
+  plugin list itself, (2) whether entries support one-click install/activate via WordPress's native
+  plugin-install API (showing not-installed/installed-inactive/active status per plugin), or are just
+  an informational name+description+link list, (3) final placement (existing settings page vs.
+  separate page). Flagged 2026-07-20, no decisions made yet on any of the three.
 - [ ] **Evaluate archived per-client forks (`.wip/`):** `.wip/` holds ~11 pre-consolidation,
   per-client XO Functions forks (e.g. `lakemoor-extensions`, `utrf-2022q3-extensions`,
   `wadellc-exo-functions`) from before this plugin became one shared codebase. Needs a real
